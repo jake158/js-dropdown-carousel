@@ -4,15 +4,11 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
 }
 
 section {
     padding: 200px;
     display: flex;
-    justify-content: space-evenly;
-}
-
-.dropdown-wrapper {
-    background-color: #3e3e42;
+    justify-content: center;
+    gap: 100px;
 }

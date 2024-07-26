@@ -52,15 +52,14 @@ export default class Dropdown {
   }
 
   #initializeStyle(elements) {
-    const btnHeight = '35px';
-    const btnPadding = '4px 10px';
+    const btnHeight = '38px';
+    const btnPadding = '4px 12px';
     const btnBgColor = '#f0f0f0';
     const btnHoverBgColor = '#e0e0e0';
     const btnActiveBgColor = '#d0d0d0';
-    const btnBorderColor = '#ccc';
     const btnBorderRadius = '8px';
     const btnFontFamily = 'inherit';
-    const btnFontSize = '14px';
+    const btnFontSize = '15px';
     const addStyles = (el, styles) => Object.assign(el.style, styles);
 
     addStyles(elements.wrapper, {
@@ -72,7 +71,7 @@ export default class Dropdown {
       height: btnHeight,
       textWrap: 'nowrap',
       backgroundColor: btnBgColor,
-      border: `1px solid ${btnBorderColor}`,
+      border: `0`,
       borderRadius: btnBorderRadius,
       padding: btnPadding,
       fontFamily: btnFontFamily,
@@ -80,7 +79,7 @@ export default class Dropdown {
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
-      gap: '5px',
+      gap: '6px',
     });
 
     addStyles(elements.showButtonIcon, {
@@ -100,7 +99,7 @@ export default class Dropdown {
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: btnBgColor,
-      border: `1px solid ${btnBorderColor}`,
+      border: '0',
       borderRadius: btnBorderRadius,
       zIndex: '1000',
     });
@@ -144,7 +143,7 @@ export default class Dropdown {
 
     for (const icon of elements.optionIcons) {
       addStyles(icon, {
-        height: `calc(${btnHeight} / 1.5)`,
+        height: `calc(${btnHeight} / 2)`,
         width: 'auto',
       });
     }
