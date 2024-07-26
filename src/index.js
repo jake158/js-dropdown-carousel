@@ -1,7 +1,7 @@
 import 'modern-normalize';
 import './style.css';
-import Dropdown from './dropdown';
-import Carousel from './carousel';
+import Dropdown from './Dropdown/dropdown';
+import Carousel from './Carousel/carousel';
 import placeholder from './img/placeholder.svg';
 
 document.addEventListener('DOMContentLoaded', () => {

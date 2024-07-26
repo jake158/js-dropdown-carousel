@@ -3,7 +3,7 @@ import downSymbol from './img/chevron-down.svg';
 
 export default class Dropdown {
   constructor(dropdownWrapper, showOnHover = false) {
-    const elements = this.#getElements(dropdownWrapper);
+    const elements = this.getElements(dropdownWrapper);
     this.optionsList = elements.optionsList;
     this.showButtonIcon = elements.showButtonIcon;
 
@@ -16,7 +16,7 @@ export default class Dropdown {
     );
   }
 
-  #getElements(wrapper) {
+  getElements(wrapper) {
     const showButton = wrapper.querySelector('button');
     const showButtonIcon = document.createElement('img');
     showButtonIcon.src = downSymbol;
