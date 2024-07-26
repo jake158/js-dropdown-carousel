@@ -1,11 +1,18 @@
+import './style.css';
+
 export default class Carousel {
   constructor(carouselWrapper) {
     this.wrapper = carouselWrapper;
-    this.initializeElements();
-    this.initializeStyle;
+    const images = Carousel.getImageArray(wrapper);
   }
 
-  initializeElements() {}
+  static getImageArray(wrapper) {
+    const array = [];
+    for (const img of wrapper.querySelectoAll('img')) {
+      array.push(img);
+    }
+    return array;
+  }
 
-  initializeStyle() {}
+  cycle() {}
 }
