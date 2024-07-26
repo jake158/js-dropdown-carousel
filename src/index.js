@@ -1,14 +1,13 @@
-import "modern-normalize";
-import "./style.css";
-import Dropdown from "./dropdown";
-import Carousel from "./carousel";
+import 'modern-normalize';
+import './style.css';
+import Dropdown from './dropdown';
+import Carousel from './carousel';
 
-document.addEventListener("DOMContentLoaded", () => {
-  const dropdownWrappers = document.querySelectorAll(".dropdown-wrapper");
-  for (const wrapper of dropdownWrappers) {
-    new Dropdown(wrapper);
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  const dropdowns = document.querySelectorAll('.dropdown-wrapper');
+  new Dropdown(dropdowns[0]);
+  new Dropdown(dropdowns[1], true);
 
-  const carouselWrapper = document.querySelector(".carousel-wrapper");
-  new Carousel(carouselWrapper);
+  const carousel = document.querySelector('.carousel-wrapper');
+  new Carousel(carousel);
 });
