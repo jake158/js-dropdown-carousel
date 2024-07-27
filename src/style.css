@@ -1,14 +1,23 @@
 body {
     background-color: #252526;
     height: 100vh;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
 section {
-    padding: 200px;
+    padding: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 100px;
+}
+
+#dropdowns {
+    height: 200px;
+    padding: 200px;
+}
+
+#carousel {
+    height: 500px;
 }
