@@ -1,13 +1,14 @@
+import './dropdown.css';
 import upSymbol from './img/chevron-up.svg';
 import downSymbol from './img/chevron-down.svg';
 
 export default class Dropdown {
   constructor(dropdownWrapper, showOnHover = false) {
     const elements = this.getElements(dropdownWrapper);
+    this.addClasses(elements);
     this.optionsList = elements.optionsList;
     this.showButtonIcon = elements.showButtonIcon;
 
-    this.#initializeStyle(elements);
     this.hide();
 
     elements.showButton.addEventListener(
@@ -35,6 +36,23 @@ export default class Dropdown {
     };
   }
 
+  addClasses(elements) {
+    elements.wrapper.classList.add('dropdown-wrapper');
+    elements.showButton.classList.add('dropdown-show-button');
+    elements.showButtonIcon.classList.add('dropdown-icon');
+    elements.optionsList.classList.add('dropdown-options-list');
+
+    const optionButtons = elements.optionsList.querySelectorAll('button');
+    const optionIcons = elements.optionsList.querySelectorAll('img');
+
+    for (const btn of optionButtons) {
+      btn.classList.add('dropdown-option-button');
+    }
+    for (const icon of optionIcons) {
+      icon.classList.add('dropdown-option-icon');
+    }
+  }
+
   hide() {
     this.optionsList.style.display = 'none';
     this.showButtonIcon.src = downSymbol;
@@ -49,103 +67,5 @@ export default class Dropdown {
 
   toggle() {
     this.visible ? this.hide() : this.show();
-  }
-
-  #initializeStyle(elements) {
-    const btnHeight = '38px';
-    const btnPadding = '4px 12px';
-    const btnBgColor = '#f0f0f0';
-    const btnHoverBgColor = '#e0e0e0';
-    const btnActiveBgColor = '#d0d0d0';
-    const btnBorderRadius = '8px';
-    const btnFontFamily = 'inherit';
-    const btnFontSize = '15px';
-    const addStyles = (el, styles) => Object.assign(el.style, styles);
-
-    addStyles(elements.wrapper, {
-      position: 'relative',
-      display: 'flex',
-    });
-
-    addStyles(elements.showButton, {
-      height: btnHeight,
-      textWrap: 'nowrap',
-      backgroundColor: btnBgColor,
-      border: `0`,
-      borderRadius: btnBorderRadius,
-      padding: btnPadding,
-      fontFamily: btnFontFamily,
-      fontSize: btnFontSize,
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px',
-    });
-
-    addStyles(elements.showButtonIcon, {
-      height: `calc(${btnHeight} / 2)`,
-      width: 'auto',
-    });
-
-    addStyles(elements.optionsList, {
-      margin: '0',
-      padding: '0',
-      position: 'absolute',
-      left: '0',
-      top: `calc(${btnHeight} + 8px)`,
-      overflow: 'auto',
-      minWidth: '100%',
-      listStyleType: 'none',
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: btnBgColor,
-      border: '0',
-      borderRadius: btnBorderRadius,
-      zIndex: '1000',
-    });
-
-    for (const btn of elements.optionButtons) {
-      addStyles(btn, {
-        textWrap: 'nowrap',
-        width: '100%',
-        height: btnHeight,
-        backgroundColor: btnBgColor,
-        border: 'none',
-        padding: btnPadding,
-        fontFamily: btnFontFamily,
-        fontSize: btnFontSize,
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-      });
-
-      btn.addEventListener('click', () => {
-        this.hide();
-      });
-
-      btn.addEventListener('mouseover', () => {
-        btn.style.backgroundColor = btnHoverBgColor;
-      });
-
-      btn.addEventListener('mouseout', () => {
-        btn.style.backgroundColor = btnBgColor;
-      });
-
-      btn.addEventListener('mousedown', () => {
-        btn.style.backgroundColor = btnActiveBgColor;
-      });
-
-      btn.addEventListener('mouseup', () => {
-        btn.style.backgroundColor = btnHoverBgColor;
-      });
-    }
-
-    for (const icon of elements.optionIcons) {
-      addStyles(icon, {
-        height: `calc(${btnHeight} / 2)`,
-        width: 'auto',
-      });
-    }
   }
 }
