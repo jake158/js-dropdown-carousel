@@ -9,7 +9,7 @@ export default class Carousel {
     this.setUpHTML(this.images);
     this.setUpEventListeners();
     this.pos = 0;
-    this.scrollTo(this.pos);
+    this.selectImage(this.pos);
   }
 
   static getImageArray(wrapper) {
@@ -19,6 +19,23 @@ export default class Carousel {
   setUpHTML(images) {
     this.wrapper.classList.add('carousel-wrapper');
 
+    let imagesHTML = '';
+    images.forEach((image, index) => {
+      const imageHTML = `
+      <div class="carousel-image-container" data-pos="${index}">
+        <img src="${image.src}" class="carousel-image" alt="${image.alt || ''}">
+      </div>`;
+      imagesHTML += imageHTML;
+    });
+
+    let navHTML = '';
+    for (let i = 0; i < images.length; i++) {
+      const buttonHTML = `
+      <button class="carousel-nav-button" data-pos="${i}"></button>
+      `;
+      navHTML += buttonHTML;
+    }
+
     this.wrapper.innerHTML = `
     <div class="carousel-sidepanel">
       <button class="carousel-back carousel-arrow-button">
@@ -26,10 +43,12 @@ export default class Carousel {
       </button>
     </div>
 
-    <div class="carousel-tape"></div>
+    <div class="carousel-tape">
+      ${imagesHTML}
+    </div>
 
     <div class="carousel-nav">
-
+      ${navHTML}
     </div>
 
     <div class="carousel-sidepanel">
@@ -40,20 +59,7 @@ export default class Carousel {
     `;
 
     this.tape = this.wrapper.querySelector('.carousel-tape');
-
-    const constructContainer = (image, pos) => {
-      const container = document.createElement('div');
-      container.classList.add('carousel-image-container');
-      image.classList.add('carousel-image');
-      container.appendChild(image);
-      container.dataset.pos = pos;
-      return container;
-    };
-
-    for (let i = 0; i < images.length; i++) {
-      const container = constructContainer(images[i], i);
-      this.tape.appendChild(container);
-    }
+    this.nav = this.wrapper.querySelector('.carousel-nav');
   }
 
   setUpEventListeners() {
@@ -62,9 +68,23 @@ export default class Carousel {
 
     const forwardBtn = this.wrapper.querySelector('.carousel-forward');
     forwardBtn.addEventListener('click', () => this.next());
+
+    const navBtns = this.wrapper.querySelectorAll('.carousel-nav-button');
+    for (const btn of navBtns) {
+      btn.addEventListener('click', (e) => {
+        this.pos = parseInt(e.target.dataset.pos, 10);
+        this.selectImage(this.pos);
+      });
+    }
   }
 
-  scrollTo(pos) {
+  selectImage(pos) {
+    if (this.selectedNav) {
+      this.selectedNav.classList.remove('selected');
+    }
+    this.selectedNav = this.nav.querySelector(`[data-pos="${pos}"]`);
+    this.selectedNav.classList.add('selected');
+
     const imgContainer = this.tape.querySelector(`[data-pos="${pos}"]`);
     imgContainer.scrollIntoView();
   }
@@ -74,7 +94,7 @@ export default class Carousel {
       return;
     }
     this.pos += 1;
-    this.scrollTo(this.pos);
+    this.selectImage(this.pos);
   }
 
   previous() {
@@ -82,7 +102,7 @@ export default class Carousel {
       return;
     }
     this.pos -= 1;
-    this.scrollTo(this.pos);
+    this.selectImage(this.pos);
   }
 
   cycle() {}
