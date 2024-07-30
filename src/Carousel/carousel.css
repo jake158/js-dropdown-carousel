@@ -1,5 +1,7 @@
 .carousel-wrapper {
-    width: 500px;
+    --wrapper-width: 500px;
+    
+    width: var(--wrapper-width);
     height: 100%;
     overflow: scroll;
     border: 2px solid red;
@@ -14,10 +16,19 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
+    gap: 100px;
+}
+
+.carousel-image-container {
+    height: 100%;
+    width: var(--wrapper-width);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel-image {
     max-height: 100%;
     max-width: 100%;
-    flex: 1;
 }

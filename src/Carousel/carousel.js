@@ -5,6 +5,8 @@ export default class Carousel {
     this.wrapper = carouselWrapper;
     this.images = Carousel.getImageArray(carouselWrapper);
     this.setUpHTML(this.images);
+    this.pos = 0;
+    this.scrollTo(this.pos);
   }
 
   static getImageArray(wrapper) {
@@ -20,27 +22,42 @@ export default class Carousel {
 
     this.tape = this.wrapper.querySelector('.carousel-tape');
 
+    const constructContainer = (image, pos) => {
+      const container = document.createElement('div');
+      container.classList.add('carousel-image-container');
+      image.classList.add('carousel-image');
+      container.appendChild(image);
+      container.dataset.pos = pos;
+      return container;
+    };
+
     for (let i = 0; i < images.length; i++) {
-      const img = images[i];
-      img.classList.add('carousel-image');
-      img.dataset.pos = i;
-      this.tape.appendChild(img);
+      const container = constructContainer(images[i], i);
+      this.tape.appendChild(container);
     }
 
-    this.gap = this.wrapper.offsetWidth;
-    this.tape.style.gap = this.gap + 'px';
-    this.tape.scrollLeft = 0;
+    this.wrapper.addEventListener('click', () => this.next());
+  }
 
-    // Temp
-    this.tape.addEventListener('click', () => this.next());
+  scrollTo(pos) {
+    const imgContainer = this.tape.querySelector(`[data-pos="${pos}"]`);
+    imgContainer.scrollIntoView();
   }
 
   next() {
-    this.tape.scrollLeft += this.gap * 2;
+    if (this.pos === this.images.length - 1) {
+      return;
+    }
+    this.pos += 1;
+    this.scrollTo(this.pos);
   }
 
   previous() {
-    this.tape.scrollLeft -= this.gap * 2;
+    if (this.pos === 0) {
+      return;
+    }
+    this.pos -= 1;
+    this.scrollTo(this.pos);
   }
 
   cycle() {}
