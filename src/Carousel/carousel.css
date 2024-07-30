@@ -1,14 +1,31 @@
 .carousel-wrapper {
-    --wrapper-width: 500px;
-    
-    width: var(--wrapper-width);
+    width: 100%;
     height: 100%;
-    overflow: scroll;
     border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-sidepanel {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-arrow-button {
+    outline: 0;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .carousel-tape {
     height: 100%;
+    width: calc(100% - 100px);
     overflow-x: scroll;
     overflow-y: hidden;
     scrollbar-width: none;
@@ -21,7 +38,7 @@
 
 .carousel-image-container {
     height: 100%;
-    width: var(--wrapper-width);
+    width: 100%;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
