@@ -3,13 +3,16 @@ import symbolLeft from './img/arrow-left.svg';
 import symbolRight from './img/arrow-right.svg';
 
 export default class Carousel {
-  constructor(carouselWrapper) {
+  constructor(carouselWrapper, cycling = true) {
     this.wrapper = carouselWrapper;
     this.images = Carousel.getImageArray(carouselWrapper);
     this.setUpHTML(this.images);
     this.setUpEventListeners();
+
     this.pos = 0;
+    this.cycling = !!cycling;
     this.selectImage(this.pos);
+    setTimeout(() => this.cycle(), 5000);
   }
 
   static getImageArray(wrapper) {
@@ -64,14 +67,22 @@ export default class Carousel {
 
   setUpEventListeners() {
     const backBtn = this.wrapper.querySelector('.carousel-back');
-    backBtn.addEventListener('click', () => this.previous());
+    backBtn.addEventListener('click', () => {
+      this.cycling = false;
+      this.previous();
+    });
 
     const forwardBtn = this.wrapper.querySelector('.carousel-forward');
-    forwardBtn.addEventListener('click', () => this.next());
+    forwardBtn.addEventListener('click', () => {
+      this.cycling = false;
+      this.next();
+    });
 
     const navBtns = this.wrapper.querySelectorAll('.carousel-nav-button');
+
     for (const btn of navBtns) {
       btn.addEventListener('click', (e) => {
+        this.cycling = false;
         this.pos = parseInt(e.target.dataset.pos, 10);
         this.selectImage(this.pos);
       });
@@ -91,19 +102,26 @@ export default class Carousel {
 
   next() {
     if (this.pos === this.images.length - 1) {
-      return;
+      this.pos = 0;
+    } else {
+      this.pos += 1;
     }
-    this.pos += 1;
     this.selectImage(this.pos);
   }
 
   previous() {
     if (this.pos === 0) {
-      return;
+      this.pos = this.images.length - 1;
+    } else {
+      this.pos -= 1;
     }
-    this.pos -= 1;
     this.selectImage(this.pos);
   }
 
-  cycle() {}
+  cycle() {
+    if (this.cycling) {
+      this.next();
+      setTimeout(() => this.cycle(), 5000);
+    }
+  }
 }

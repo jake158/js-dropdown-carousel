@@ -3,7 +3,7 @@
     height: 100%;
 
     display: grid;
-    grid-template: 1fr 35px / 60px 1fr 60px;
+    grid-template: 1fr 35px / 70px 1fr 70px;
 }
 
 
@@ -60,7 +60,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 100px;
+    gap: 50px;
 }
 
 
@@ -102,6 +102,7 @@
 }
 
 .carousel-image {
+    border-radius: 12px;
     max-height: 100%;
     max-width: 100%;
 }
