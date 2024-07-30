@@ -1,4 +1,6 @@
 import './carousel.css';
+import symbolLeft from './img/arrow-left.svg';
+import symbolRight from './img/arrow-right.svg';
 
 export default class Carousel {
   constructor(carouselWrapper) {
@@ -20,15 +22,19 @@ export default class Carousel {
     this.wrapper.innerHTML = `
     <div class="carousel-sidepanel">
       <button class="carousel-back carousel-arrow-button">
-        B
+        <img src=${symbolLeft}>
       </button>
     </div>
 
     <div class="carousel-tape"></div>
 
+    <div class="carousel-nav">
+
+    </div>
+
     <div class="carousel-sidepanel">
       <button class="carousel-forward carousel-arrow-button">
-        F
+        <img src=${symbolRight}>
       </button>
     </div>
     `;
